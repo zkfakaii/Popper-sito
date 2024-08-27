@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1544190499820001165}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: attackpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,13 +131,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250498345276804542}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7422717, w: 0.670099}
   m_LocalPosition: {x: 0.461, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6590886976512257416}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 95.851}
 --- !u!1 &5203520827923092743
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,8 +253,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 7677699505476766526, guid: 72211fc68a2eb0548be53baaeb803550, type: 3}
   attackSpeed: 1
+  attackDistance: 5
   attackDelay: 1
   attackPoint: {fileID: 1544190499820001165}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &5792496075705189933
 GameObject:
   m_ObjectHideFlags: 0

@@ -932,7 +932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0104784803244e64180343e68a9f6864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 10000
   sceneToLoadOnDeath: Muerte
 --- !u!1 &1385445896
 GameObject:
@@ -1030,6 +1030,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3887710671060153255, guid: 734426da54a61304b8114281cef5f63e, type: 3}
+      propertyPath: attackDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5203520827923092743, guid: 734426da54a61304b8114281cef5f63e, type: 3}
       propertyPath: m_Name
       value: zanahoria-fath

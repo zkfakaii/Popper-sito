@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  lifetime: 2
+  lifetime: 3
 --- !u!136 &8741473550520256702
 CapsuleCollider:
   m_ObjectHideFlags: 0
