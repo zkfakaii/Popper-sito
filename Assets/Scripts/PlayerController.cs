@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float gravity = 9.81f;
+    [SerializeField] private float rotationSpeed = 10f; // Velocidad de rotación
 
     private float verticalVelocity;
 
@@ -33,9 +34,10 @@ public class PlayerController : MonoBehaviour
         Movement();
     }
 
-    private void Movement() 
+    private void Movement()
     {
         GroundMovement();
+        RotatePlayer(); // Añadir rotación en la dirección del movimiento
     }
 
     private void GroundMovement()
@@ -47,6 +49,17 @@ public class PlayerController : MonoBehaviour
         move.y = VerticalForceCalculation();
 
         controller.Move(move * Time.deltaTime);
+    }
+
+    private void RotatePlayer()
+    {
+        Vector3 moveDirection = new Vector3(turnInput, 0, moveInput).normalized;
+
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 
     private float VerticalForceCalculation()
