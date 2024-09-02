@@ -12,9 +12,11 @@ public class CarrotPunch : MonoBehaviour
     public float attackDelay = 0.5f; // Retraso antes de lanzar el ataque
     public Transform attackPoint; // Punto desde donde se generará el ataque
     public LayerMask playerLayer; // Capa para detectar al jugador
+    public float stopDuration = 1f; // Tiempo que el enemigo permanecerá quieto durante el ataque
 
     private Transform player; // Referencia al jugador
     private float nextAttackTime = 0f; // Tiempo en el que se puede atacar de nuevo
+    private Carrot carrotMovement; // Referencia al script de movimiento del enemigo
 
     private void Start()
     {
@@ -23,6 +25,13 @@ public class CarrotPunch : MonoBehaviour
         if (player == null)
         {
             Debug.LogError("Player no encontrado. Asegúrate de que el objeto del jugador tenga el tag 'Player'.");
+        }
+
+        // Obtén la referencia al script de movimiento
+        carrotMovement = GetComponent<Carrot>();
+        if (carrotMovement == null)
+        {
+            Debug.LogError("Script Carrot no encontrado en el objeto enemigo.");
         }
     }
 
@@ -44,10 +53,25 @@ public class CarrotPunch : MonoBehaviour
 
     private IEnumerator DelayedAttack()
     {
+        // Detén el movimiento del enemigo
+        if (carrotMovement != null)
+        {
+            carrotMovement.enabled = false;
+        }
+
         yield return new WaitForSeconds(attackDelay); // Espera el tiempo del retraso
 
         // Genera el ataque
         GenerateAttack();
+
+        // Espera un tiempo adicional después del ataque antes de permitir que el enemigo se mueva nuevamente
+        yield return new WaitForSeconds(stopDuration);
+
+        // Reactiva el movimiento del enemigo
+        if (carrotMovement != null)
+        {
+            carrotMovement.enabled = true;
+        }
     }
 
     private void GenerateAttack()
