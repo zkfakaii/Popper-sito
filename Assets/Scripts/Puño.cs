@@ -6,11 +6,28 @@ public class Puño : MonoBehaviour
 {
     public float damage = 20f; // Daño que inflige el ataque
     public float lifetime = 2f; // Tiempo de vida del ataque
+    private Transform attackPoint; // Punto de origen del ataque
 
     private void Start()
     {
         // Destruye el ataque después de un cierto tiempo
         Destroy(gameObject, lifetime);
+    }
+
+    public void Initialize(Transform attackPoint)
+    {
+        // Asigna el attackPoint al prefab
+        this.attackPoint = attackPoint;
+    }
+
+    private void Update()
+    {
+        // Si se ha asignado un attackPoint, sigue su posición y rotación
+        if (attackPoint != null)
+        {
+            transform.position = attackPoint.position;
+            transform.rotation = attackPoint.rotation;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

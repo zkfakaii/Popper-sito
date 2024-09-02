@@ -5,7 +5,6 @@ using System.Collections;
 
 
 public class CarrotPunch : MonoBehaviour
-
 {
     public GameObject attackPrefab; // Prefab del ataque
     public float attackSpeed = 1f; // Velocidad de ataque (tiempo entre ataques)
@@ -57,11 +56,12 @@ public class CarrotPunch : MonoBehaviour
         {
             // Genera el prefab del ataque
             GameObject attack = Instantiate(attackPrefab, attackPoint.position, attackPoint.rotation);
-            // Mueve el ataque hacia adelante
-            Rigidbody rb = attack.GetComponent<Rigidbody>();
-            if (rb != null)
+
+            // Inicializa el prefab del ataque con el attackPoint para que lo siga
+            Puño puñoScript = attack.GetComponent<Puño>();
+            if (puñoScript != null)
             {
-                rb.AddForce(attackPoint.forward * 10f, ForceMode.Impulse); // Ajusta la fuerza según sea necesario
+                puñoScript.Initialize(attackPoint);
             }
         }
     }
