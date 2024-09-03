@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -13,12 +12,12 @@ public class Celery : MonoBehaviour
     public float moveSpeed = 3f; // Velocidad de movimiento del enemigo
     public float dodgeSpeed = 5f; // Velocidad de movimiento al esquivar
     public float dodgeTime = 1f; // Tiempo que se mueve en el eje Z al detectar al jugador
+    public float wallDetectionRange = 5f; // Rango de detección para paredes
+    public LayerMask wallLayer; // Capa para detectar paredes
 
     private Transform player; // Referencia al jugador
     private bool canShoot = true; // Controla si el enemigo puede disparar
     private bool isPlayerDetected = false; // Indica si el jugador ha sido detectado
-
-    [SerializeField] Vector3 novDirection;
 
     private void Start()
     {
@@ -30,7 +29,7 @@ public class Celery : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (player != null)
         {
@@ -52,16 +51,10 @@ public class Celery : MonoBehaviour
                 MoveTowardsPlayer();
             }
 
-            // Si el jugador está dentro del rango de ataque, esquivar y disparar
-            if (isPlayerDetected && distanceToPlayer <= attackRange)
+            // Si el jugador está dentro del rango de ataque, moverse en el eje Z y luego disparar
+            if (isPlayerDetected && distanceToPlayer <= attackRange && canShoot)
             {
-                if (canShoot)
-                {
-                    StartCoroutine(Shoot());
-                }
-               
-
-                StartDodging();
+                StartCoroutine(MoveAndShoot());
             }
         }
     }
@@ -75,9 +68,28 @@ public class Celery : MonoBehaviour
         transform.position += direction * moveSpeed * Time.deltaTime;
     }
 
-    private IEnumerator Shoot()
+    private IEnumerator MoveAndShoot()
     {
         canShoot = false;
+
+        // Mueve al enemigo en el eje Z mientras evita paredes
+        float dodgeEndTime = Time.time + dodgeTime;
+        Vector3 startPosition = transform.position;
+        Vector3 dodgeDirection = Vector3.forward; // Ajusta esto si el eje Z no es el eje correcto
+
+        while (Time.time < dodgeEndTime)
+        {
+            // Verifica si hay una pared cerca
+            if (Physics.Raycast(transform.position, dodgeDirection, wallDetectionRange, wallLayer))
+            {
+                // Cambia la dirección si hay una pared cerca
+                dodgeDirection = Vector3.right; // Cambia la dirección para evitar la pared
+            }
+
+            // Movimiento en el eje Z con la velocidad dodgeSpeed
+            transform.position = Vector3.Lerp(startPosition, startPosition + dodgeDirection * dodgeSpeed * dodgeTime, (Time.time - (dodgeEndTime - dodgeTime)) / dodgeTime);
+            yield return null;
+        }
 
         // Instancia y dispara el proyectil
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
@@ -86,12 +98,6 @@ public class Celery : MonoBehaviour
 
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
-    }
-
-    private void StartDodging()
-    {
-        // Mueve al enemigo en el eje Z mientras esquiva
-        transform.position += novDirection * dodgeSpeed * Time.deltaTime;
     }
 
     private void OnDrawGizmosSelected()
@@ -103,5 +109,10 @@ public class Celery : MonoBehaviour
         // Visualiza el rango de ataque en el editor de Unity
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        // Visualiza el rango de detección para paredes en el editor de Unity
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, wallDetectionRange);
     }
 }
+
