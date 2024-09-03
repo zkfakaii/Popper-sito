@@ -1,5 +1,6 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Celery : MonoBehaviour
 {
@@ -7,15 +8,13 @@ public class Celery : MonoBehaviour
     public Transform firePoint; // Punto desde donde se disparan los proyectiles
     public float fireRate = 2f; // Tiempo entre disparos
     public float projectileSpeed = 10f; // Velocidad del proyectil
-    public float attackRange = 15f; // Distancia m·xima para atacar
-    public float detectionRange = 20f; // Rango de detecciÛn del jugador
-    public float moveSpeed = 3f; // Velocidad de movimiento del enemigo
+    public float attackRange = 15f; // Distancia m√°xima para atacar
+    public float detectionRange = 20f; // Rango de detecci√≥n del jugador
     public float dodgeSpeed = 5f; // Velocidad de movimiento al esquivar
     public float dodgeTime = 1f; // Tiempo que se mueve en el eje Z al detectar al jugador
-    public float wallDetectionRange = 5f; // Rango de detecciÛn para paredes
-    public LayerMask wallLayer; // Capa para detectar paredes
 
     private Transform player; // Referencia al jugador
+    private NavMeshAgent navMeshAgent; // Referencia al NavMeshAgent
     private bool canShoot = true; // Controla si el enemigo puede disparar
     private bool isPlayerDetected = false; // Indica si el jugador ha sido detectado
 
@@ -25,7 +24,13 @@ public class Celery : MonoBehaviour
 
         if (player == null)
         {
-            Debug.LogError("Player no encontrado. Aseg˙rate de que el objeto del jugador tenga el tag 'Player'.");
+            Debug.LogError("Player no encontrado. Aseg√∫rate de que el objeto del jugador tenga el tag 'Player'.");
+        }
+
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        if (navMeshAgent == null)
+        {
+            Debug.LogError("NavMeshAgent no encontrado. Aseg√∫rate de que el objeto tenga un componente NavMeshAgent.");
         }
     }
 
@@ -35,7 +40,7 @@ public class Celery : MonoBehaviour
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-            // Detecta al jugador dentro del rango de detecciÛn
+            // Detecta al jugador dentro del rango de detecci√≥n
             if (distanceToPlayer <= detectionRange)
             {
                 isPlayerDetected = true;
@@ -45,15 +50,16 @@ public class Celery : MonoBehaviour
                 isPlayerDetected = false;
             }
 
-            // Si el jugador est· dentro del rango de detecciÛn, moverse hacia Èl
+            // Si el jugador est√° dentro del rango de detecci√≥n, moverse hacia √©l
             if (isPlayerDetected && distanceToPlayer > attackRange)
             {
                 MoveTowardsPlayer();
             }
 
-            // Si el jugador est· dentro del rango de ataque, moverse en el eje Z y luego disparar
+            // Si el jugador est√° dentro del rango de ataque, detenerse y disparar
             if (isPlayerDetected && distanceToPlayer <= attackRange && canShoot)
             {
+                navMeshAgent.isStopped = true; // Detener el movimiento del agente
                 StartCoroutine(MoveAndShoot());
             }
         }
@@ -61,35 +67,20 @@ public class Celery : MonoBehaviour
 
     private void MoveTowardsPlayer()
     {
-        // Calcula la direcciÛn hacia el jugador
-        Vector3 direction = (player.position - transform.position).normalized;
-
-        // Mueve al enemigo en esa direcciÛn
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        // Configura el destino del NavMeshAgent hacia la posici√≥n del jugador
+        navMeshAgent.SetDestination(player.position);
+        navMeshAgent.isStopped = false; // Asegurarse de que el agente no est√© detenido
     }
 
     private IEnumerator MoveAndShoot()
     {
         canShoot = false;
 
-        // Mueve al enemigo en el eje Z mientras evita paredes
-        float dodgeEndTime = Time.time + dodgeTime;
-        Vector3 startPosition = transform.position;
-        Vector3 dodgeDirection = Vector3.forward; // Ajusta esto si el eje Z no es el eje correcto
+        // Mueve al enemigo en el eje Z durante dodgeTime utilizando NavMeshAgent
+        Vector3 dodgeDirection = transform.forward * dodgeSpeed;
+        navMeshAgent.Move(dodgeDirection * Time.deltaTime);
 
-        while (Time.time < dodgeEndTime)
-        {
-            // Verifica si hay una pared cerca
-            if (Physics.Raycast(transform.position, dodgeDirection, wallDetectionRange, wallLayer))
-            {
-                // Cambia la direcciÛn si hay una pared cerca
-                dodgeDirection = Vector3.right; // Cambia la direcciÛn para evitar la pared
-            }
-
-            // Movimiento en el eje Z con la velocidad dodgeSpeed
-            transform.position = Vector3.Lerp(startPosition, startPosition + dodgeDirection * dodgeSpeed * dodgeTime, (Time.time - (dodgeEndTime - dodgeTime)) / dodgeTime);
-            yield return null;
-        }
+        yield return new WaitForSeconds(dodgeTime);
 
         // Instancia y dispara el proyectil
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
@@ -98,21 +89,17 @@ public class Celery : MonoBehaviour
 
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
+        navMeshAgent.isStopped = false; // Reanudar el movimiento despu√©s de disparar
     }
 
     private void OnDrawGizmosSelected()
     {
-        // Visualiza el rango de detecciÛn en el editor de Unity
+        // Visualiza el rango de detecci√≥n en el editor de Unity
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
         // Visualiza el rango de ataque en el editor de Unity
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-
-        // Visualiza el rango de detecciÛn para paredes en el editor de Unity
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, wallDetectionRange);
     }
 }
-
