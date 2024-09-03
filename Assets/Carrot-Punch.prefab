@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8741473550520256702}
   - component: {fileID: 9186862269562764995}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Carrot-Punch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
