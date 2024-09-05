@@ -148,9 +148,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6590886976512257416}
   - component: {fileID: 143084710511812636}
-  - component: {fileID: 6453199527876384467}
   - component: {fileID: -6770978762887003562}
   - component: {fileID: 1471626141135012759}
+  - component: {fileID: 6019463129285393515}
   m_Layer: 6
   m_Name: Celery-Fath
   m_TagString: Enemy
@@ -199,33 +199,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6453199527876384467
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5203520827923092743}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 1
-  m_Constraints: 86
-  m_CollisionDetection: 1
 --- !u!114 &-6770978762887003562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,13 +227,33 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7677699505476766526, guid: cf83839bfb14f08418b8ced208fa0c35, type: 3}
   firePoint: {fileID: 1544190499820001165}
   fireRate: 1
-  projectileSpeed: 2
-  attackRange: 5
+  projectileSpeed: 4
+  attackRange: 7
   detectionRange: 15
-  moveSpeed: 5
-  dodgeSpeed: 2
+  dodgeSpeed: 6
   dodgeTime: 1
-  novDirection: {x: 0, y: 70, z: 1}
+--- !u!195 &6019463129285393515
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5203520827923092743}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.65
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 4
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.7
+  m_BaseOffset: 0.82
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &5792496075705189933
 GameObject:
   m_ObjectHideFlags: 0
