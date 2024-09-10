@@ -12,6 +12,7 @@ public class Celery : MonoBehaviour
     public float detectionRange = 20f; // Rango de detección del jugador
     public float dodgeSpeed = 5f; // Velocidad de movimiento al esquivar
     public float dodgeTime = 1f; // Tiempo que se mueve en el eje Z al detectar al jugador
+    public float rotationSpeed = 10f; // Velocidad de rotación hacia el jugador
 
     private Transform player; // Referencia al jugador
     private NavMeshAgent navMeshAgent; // Referencia al NavMeshAgent
@@ -62,6 +63,9 @@ public class Celery : MonoBehaviour
                 navMeshAgent.isStopped = true; // Detener el movimiento del agente
                 StartCoroutine(MoveAndShoot());
             }
+
+            // Rotar para mirar al jugador mientras se mueve
+            RotateTowardsPlayer();
         }
     }
 
@@ -90,6 +94,18 @@ public class Celery : MonoBehaviour
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
         navMeshAgent.isStopped = false; // Reanudar el movimiento después de disparar
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        // Calcula la dirección hacia el jugador
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+
+        // Establece la rotación hacia la dirección del jugador
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToPlayer.x, 0, directionToPlayer.z));
+
+        // Rotar suavemente hacia el jugador
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
     }
 
     private void OnDrawGizmosSelected()
