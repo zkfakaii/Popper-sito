@@ -18,7 +18,8 @@ public class CarrotPunch : MonoBehaviour
     private Transform player; // Referencia al jugador
     private float nextAttackTime = 0f; // Tiempo en el que se puede atacar de nuevo
     private NavMeshAgent navMeshAgent; // Referencia al NavMeshAgent para movimiento
-
+    public float pushForce = 10f; // Fuerza con la que empuja al jugador
+    public Vector3 yOffset;
     private void Start()
     {
         // Encuentra al jugador en la escena por su tag
@@ -75,7 +76,7 @@ public class CarrotPunch : MonoBehaviour
         }
     }
 
-    private void PerformRaycastAttack()
+ private void PerformRaycastAttack()
     {
         // Define la dirección del raycast en función de la dirección actual del movimiento del enemigo
         Vector3 direction = navMeshAgent.velocity.normalized;
@@ -93,13 +94,23 @@ public class CarrotPunch : MonoBehaviour
             raycastLength,
             playerLayer);
 
+        Debug.Log(hits.Length);
         foreach (RaycastHit hit in hits)
         {
+            Debug.Log("Golpeó a " + hit.collider.name);
             if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
                 Debug.Log("Golpeó a " + hit.collider.name);
                 // Aplica el daño al jugador
                 hit.collider.GetComponent<PlayerHealth>()?.TakeDamage(1); // Asegúrate de tener un sistema de salud en el jugador
+
+                // Aplica el empuje al jugador en la dirección del golpe
+                Rigidbody playerRigidbody = hit.collider.GetComponent<Rigidbody>();
+                if (playerRigidbody != null)
+                {
+                    Debug.Log((direction+ yOffset) * pushForce);
+                    playerRigidbody.AddForce((direction+ yOffset) * pushForce, ForceMode.Impulse);
+                }                
             }
         }
     }

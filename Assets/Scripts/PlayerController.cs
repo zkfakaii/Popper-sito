@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     {
         InputManagement();
         Movement();
+        Debug.Log(controller.velocity);
     }
 
     private void Movement()
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
         move.y = VerticalForceCalculation();
 
-        controller.Move(move * Time.deltaTime);
+        //controller.Move(move * Time.deltaTime);
     }
 
     private void RotatePlayer()

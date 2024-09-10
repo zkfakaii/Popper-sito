@@ -131,13 +131,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250498345276804542}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7422717, w: 0.670099}
-  m_LocalPosition: {x: 0.05, y: -0.04, z: 0.38}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7061654, w: 0.7080469}
+  m_LocalPosition: {x: 0.049999237, y: -0.040000007, z: 0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6590886976512257416}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 95.851}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.848}
 --- !u!1 &3348775239486406825
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 3887710671060153255}
   - component: {fileID: -6770978762887003562}
   - component: {fileID: 5614936187480319600}
+  - component: {fileID: 7018351390484357078}
   m_Layer: 6
   m_Name: zanahoria-fath
   m_TagString: Enemy
@@ -376,6 +377,33 @@ NavMeshAgent:
   m_BaseOffset: 0.9
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &7018351390484357078
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5203520827923092743}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5792496075705189933
 GameObject:
   m_ObjectHideFlags: 0
