@@ -87,13 +87,11 @@ public class CarrotPunch : MonoBehaviour
 
         // Crea un raycast de tipo caja (BoxCast) con dimensiones ajustables
         RaycastHit[] hits = Physics.BoxCastAll(
-            attackPoint.position,
+            attackPoint.position * (raycastLength / 2),
             new Vector3(raycastWidth / 2, raycastWidth / 2, raycastLength / 2),
-            direction,
-            attackPoint.rotation,
-            raycastLength,
-            playerLayer);
-
+            transform.forward
+            );
+        
         Debug.Log(hits.Length);
         foreach (RaycastHit hit in hits)
         {
@@ -108,7 +106,8 @@ public class CarrotPunch : MonoBehaviour
                 Rigidbody playerRigidbody = hit.collider.GetComponent<Rigidbody>();
                 if (playerRigidbody != null)
                 {
-                    Debug.Log((direction+ yOffset) * pushForce);
+                    hit.collider.GetComponent<Rigidbody>().mass = 2f ;
+                    Debug.Log(direction + " " + (direction + yOffset) * pushForce);
                     playerRigidbody.AddForce((direction+ yOffset) * pushForce, ForceMode.Impulse);
                 }                
             }

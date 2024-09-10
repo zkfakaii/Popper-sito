@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // References
-    [Header("References")]
-    private CharacterController controller;
+    private Rigidbody rb; // Usaremos un Rigidbody para el movimiento
 
     // Movement Settings
     [Header("Movement Settings")]
@@ -20,11 +19,12 @@ public class PlayerController : MonoBehaviour
     [Header("Input")]
     private float moveInput;
     private float turnInput;
-
+    bool finishedRoitation = false;
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true; // Desactiva la rotación automática del Rigidbody para manejarla manualmente
     }
 
     // Update is called once per frame
@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     {
         InputManagement();
         Movement();
-        Debug.Log(controller.velocity);
     }
 
     private void Movement()
@@ -43,13 +42,13 @@ public class PlayerController : MonoBehaviour
 
     private void GroundMovement()
     {
-        Vector3 move = new Vector3(turnInput, 0, moveInput);
-        move.y = 0;
-        move *= walkSpeed;
+        // Cálculo del movimiento en el plano horizontal
+        Vector3 move = new Vector3(turnInput, 0, moveInput) * walkSpeed;
 
-        move.y = VerticalForceCalculation();
-
-        //controller.Move(move * Time.deltaTime);
+        // Aplicar movimiento usando Rigidbody
+        if (finishedRoitation) {
+            rb.velocity = new Vector3(move.x, rb.velocity.y, move.z);
+        }
     }
 
     private void RotatePlayer()
@@ -59,21 +58,15 @@ public class PlayerController : MonoBehaviour
         if (moveDirection != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            finishedRoitation = (toRotation == transform.rotation);
+
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
     }
-
-    private float VerticalForceCalculation()
+    private bool IsGrounded()
     {
-        if (controller.isGrounded)
-        {
-            verticalVelocity = -1f;
-        }
-        else
-        {
-            verticalVelocity -= gravity * Time.deltaTime;
-        }
-        return verticalVelocity;
+        // Raycast para verificar si el jugador está tocando el suelo
+        return Physics.Raycast(transform.position, Vector3.down, 1.1f); // Ajusta la distancia según el tamaño del jugador
     }
 
     private void InputManagement()
