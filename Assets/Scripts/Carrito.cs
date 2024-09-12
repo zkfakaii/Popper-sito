@@ -9,11 +9,29 @@ public class Carrito : MonoBehaviour
     public float attackAngle = 45f; // Ángulo de apertura del cono
     public int attackDamage = 1; // Daño que inflige el ataque
     public LayerMask enemyLayers; // Capa de los enemigos
+    public Animator animator; // Referencia al componente Animator
+
+    private void Start()
+    {
+        // Verifica si el Animator está asignado, si no, intenta obtenerlo del mismo objeto
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+            if (animator == null)
+            {
+                Debug.LogError("No se encontró un Animator asignado o en los hijos del objeto.");
+            }
+        }
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            // Activa la animación de ataque
+            animator.SetTrigger("Attack");
+
+            // Ejecuta el ataque
             Attack();
         }
     }
