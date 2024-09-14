@@ -9,12 +9,23 @@ public class CombatController : MonoBehaviour
     public float attackAngle = 45f; // Ángulo de apertura del cono
     public int attackDamage = 1; // Daño que inflige el ataque
     public LayerMask enemyLayers; // Capa de los enemigos
+    [SerializeField] private Animator anim;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            // Activa la animación de ataque
+
+            anim.SetBool("Corando", true);
+
+            // Ejecuta el ataque
             Attack();
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            anim.SetBool("Corando", false);
+
         }
     }
 

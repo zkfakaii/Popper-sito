@@ -9,13 +9,21 @@ public class Papas : MonoBehaviour
     public int attackDamage = 1; // Daño que inflige el ataque
     public LayerMask enemyLayers; // Capa de los enemigos
     public float attackDelay = 0.5f; // Retraso antes de infligir daño
+    [SerializeField] private Animator anim;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
             StartCoroutine(AttackWithDelay());
+            anim.SetBool("saco",true);
         }
+        if (Input.GetKeyUp(KeyCode.F)) 
+            {
+            anim.SetBool("saco", false);
+
+        }
+
     }
 
     private IEnumerator AttackWithDelay()
