@@ -2,68 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class CombatController : MonoBehaviour
 {
-    public Transform attackPoint;
-    public float attackRange = 5f;
-    public float attackAngle = 45f;
-    public int attackDamage = 1;
-    public LayerMask enemyLayers;
+    public Transform attackPoint; // Punto de origen del ataque
+    public float attackRange = 5f; // Distancia máxima del ataque
+    public float attackAngle = 45f; // Ángulo de apertura del cono
+    public int attackDamage = 1; // Daño que inflige el ataque
+    public LayerMask enemyLayers; // Capa de los enemigos
     [SerializeField] private Animator anim;
-    public int comboCount = 3; // Número de veces que se repetirá el ataque
-    public float attackSpeedIncrease = 0.1f; // Incremento de velocidad por ataque
-    public ScoreManager scoreManager; // Referencia al ScoreManager
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            // Verificar si se pueden usar los 30 puntos de tijeras para el ataque especial
-            if (scoreManager.CanUseSpecialTijerasAttack())
-            {
-                // Consumir los puntos y ejecutar el ataque mejorado
-                scoreManager.UseSpecialTijerasAttack();
-                StartCoroutine(ComboAttack());
-            }
-            else
-            {
-                Debug.Log("No tienes suficientes puntos para el ataque especial de tijeras.");
-            }
-        }
-    }
+            // Activa la animación de ataque
 
-    private IEnumerator ComboAttack()
-    {
-        for (int i = 0; i < comboCount; i++)
-        {
-            // Acelerar la animación en cada ataque
-            anim.speed = 1 + (i * attackSpeedIncrease);
+            anim.SetBool("Corando", true);
 
-            // Ejecutar el ataque
+            // Ejecuta el ataque
             Attack();
-
-            // Esperar a que la animación termine antes de continuar con el siguiente ataque
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / anim.speed);
         }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            anim.SetBool("Corando", false);
 
-        // Restaurar la velocidad normal de la animación
-        anim.speed = 1;
+        }
     }
 
     private void Attack()
     {
+        // Obtener todos los colliders en el rango del ataque
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
 
         foreach (Collider enemy in hitEnemies)
         {
+            // Calcular la dirección desde el punto de ataque al enemigo
             Vector3 directionToEnemy = (enemy.transform.position - attackPoint.position).normalized;
+
+            // Calcular el ángulo entre la dirección de ataque (hacia adelante) y la dirección al enemigo
             float angleToEnemy = Vector3.Angle(attackPoint.forward, directionToEnemy);
 
+            // Si el enemigo está dentro del ángulo de ataque, aplicarle daño
             if (angleToEnemy < attackAngle / 2f)
             {
                 Debug.Log("Golpeó a " + enemy.name);
-                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, "Tijeras");
+                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, "CombatController");
             }
         }
     }
@@ -73,7 +56,10 @@ public class CombatController : MonoBehaviour
         if (attackPoint == null)
             return;
 
+        // Dibuja el rango de ataque como un cono
         Gizmos.color = Color.red;
+
+        // Dibuja líneas radiales para simular el cono en el editor
         for (int i = 0; i <= 10; i++)
         {
             float currentAngle = Mathf.Lerp(-attackAngle / 2f, attackAngle / 2f, i / 10f);
