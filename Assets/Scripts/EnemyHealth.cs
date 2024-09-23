@@ -6,21 +6,19 @@ public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 3;
     private int currentHealth;
-
-    // Referencia al sistema de puntuación
-    public ScoreManager scoreManager;
+    private ScoreManager scoreManager;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
-    // Método que recibe el daño y el tipo de ataque
     public void TakeDamage(int damage, string attackType)
     {
         currentHealth -= damage;
 
-        Debug.Log("Enemigo " + gameObject.name + " recibe daño por " + attackType + ". Vida restante: " + currentHealth);
+        Debug.Log("Enemigo " + gameObject.name + " recibe daño. Vida restante: " + currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -30,13 +28,10 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die(string attackType)
     {
-        Debug.Log("Enemigo " + gameObject.name + " ha muerto por " + attackType);
+        Debug.Log("Enemigo " + gameObject.name + " ha muerto.");
 
-        // Actualiza la puntuación según el tipo de ataque
-        if (scoreManager != null)
-        {
-            scoreManager.UpdateScore(attackType);
-        }
+        // Sumar puntos basados en el tipo de ataque
+        scoreManager.AddPoints(attackType, 10); // Aquí decides cuántos puntos se otorgan por cada muerte
 
         Destroy(gameObject);
     }

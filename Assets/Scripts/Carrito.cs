@@ -57,6 +57,7 @@ public class Carrito : MonoBehaviour
             {
                 Debug.Log("Golpeó a " + enemy.name);
                 enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, "Carrito");
+
             }
         }
     }

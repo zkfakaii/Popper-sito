@@ -7,26 +7,53 @@ public class ScoreManager : MonoBehaviour
     public int tijerasScore = 0;
     public int papasScore = 0;
 
-    // Método que actualiza la puntuación según el tipo de ataque
-    public void UpdateScore(string attackType)
+    public void AddPoints(string attackType, int points)
     {
         switch (attackType)
         {
             case "Carrito":
-                carritoScore += 10;
-                Debug.Log("Puntuación de Carrito: " + carritoScore);
+                carritoScore += points;
                 break;
-            case "CombatController":
-                tijerasScore += 10;
-                Debug.Log("Puntuación de Tijeras: " + tijerasScore);
+            case "Tijeras":
+                tijerasScore += points;
                 break;
             case "Papas":
-                papasScore += 10;
-                Debug.Log("Puntuación de Papas: " + papasScore);
+                papasScore += points;
                 break;
             default:
-                Debug.Log("Tipo de ataque desconocido.");
+                Debug.LogWarning("Tipo de ataque no reconocido: " + attackType);
                 break;
         }
+        Debug.Log($"Puntos actualizados -> Carrito: {carritoScore}, Tijeras: {tijerasScore}, Papas: {papasScore}");
     }
+
+    public bool CanUseSpecialPapasAttack()
+    {
+        return papasScore >= 30;
+    }
+
+    public void UseSpecialPapasAttack()
+    {
+        if (papasScore >= 30)
+        {
+            papasScore -= 30; // Consumir 30 puntos
+            Debug.Log("Usaste el ataque especial de Papas");
+        }
+    }
+
+    public bool CanUseSpecialTijerasAttack()
+    {
+        return tijerasScore >= 30;
+    }
+
+    public void UseSpecialTijerasAttack()
+    {
+        if (tijerasScore >= 30)
+        {
+            tijerasScore -= 30; // Consumir 30 puntos
+            Debug.Log("Usaste el ataque especial de Tijeras");
+        }
+    }
+
+
 }
