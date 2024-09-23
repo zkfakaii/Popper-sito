@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 rayStart = transform.position + Vector3.up * 0.1f; // Inicia el raycast un poco por encima del jugador
         bool grounded = Physics.Raycast(rayStart, Vector3.down, 1.3f); // Ajusta la distancia según el tamaño del jugador
-        Debug.Log(grounded ? "Jugador está en el suelo" : "Jugador NO está en el suelo");
+        //Debug.Log(grounded ? "Jugador está en el suelo" : "Jugador NO está en el suelo");
         return grounded;
 
        
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
             isJumping = true; // Marcar que está saltando
 
             // Debug para indicar que el jugador ha saltado
-            Debug.Log("Jugador ha saltado con una fuerza de: " + jumpForce);
+           // Debug.Log("Jugador ha saltado con una fuerza de: " + jumpForce);
         }
 
         // Verificar si ha aterrizado
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
             isJumping = false; // Restablecer el estado de salto
 
             // Debug para indicar que el jugador ha aterrizado
-            Debug.Log("Jugador ha aterrizado.");
+           // Debug.Log("Jugador ha aterrizado.");//
         }
     }
 

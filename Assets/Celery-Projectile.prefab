@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8741473550520256702}
   - component: {fileID: 9186862269562764995}
   - component: {fileID: 6461241126244733355}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Celery-Projectile
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7677699505476766526}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.7459528, w: 0.6659989}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7006019, w: 0.7135525}
   m_LocalPosition: {x: 0.455, y: 1.569, z: 0.057}
   m_LocalScale: {x: -0.26168075, y: -0.26168075, z: -0.26168075}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -96.482}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -88.951}
 --- !u!33 &2842090419061925510
 MeshFilter:
   m_ObjectHideFlags: 0
