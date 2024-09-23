@@ -173,10 +173,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: zanahoria-fath
       objectReference: {fileID: 0}
-    - target: {fileID: 6550034198147823590, guid: 734426da54a61304b8114281cef5f63e, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6590886976512257416, guid: 734426da54a61304b8114281cef5f63e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17
@@ -1860,7 +1856,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  scoreManager: {fileID: 154961424}
 --- !u!135 &473768243
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2062,7 +2057,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &564782783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3650,6 +3645,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   anim: {fileID: 753559299}
+  comboCount: 3
+  attackSpeedIncrease: 0.1
+  scoreManager: {fileID: 154961424}
 --- !u!114 &1168775460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4316,6 +4314,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   anim: {fileID: 0}
+  comboCount: 3
+  attackSpeedIncrease: 0.1
+  scoreManager: {fileID: 0}
 --- !u!95 &1378043368
 Animator:
   serializedVersion: 5
@@ -5458,7 +5459,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  scoreManager: {fileID: 154961424}
 --- !u!135 &1891481334
 SphereCollider:
   m_ObjectHideFlags: 0
