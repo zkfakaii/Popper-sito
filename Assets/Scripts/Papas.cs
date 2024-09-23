@@ -50,7 +50,7 @@ public class Papas : MonoBehaviour
             if (angleToEnemy < attackAngle / 2f)
             {
                 Debug.Log("Golpeó a " + enemy.name);
-                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage);
+                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, "Papas");
             }
         }
     }

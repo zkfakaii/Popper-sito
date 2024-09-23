@@ -46,7 +46,7 @@ public class CombatController : MonoBehaviour
             if (angleToEnemy < attackAngle / 2f)
             {
                 Debug.Log("Golpeó a " + enemy.name);
-                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage);
+                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, "CombatController");
             }
         }
     }

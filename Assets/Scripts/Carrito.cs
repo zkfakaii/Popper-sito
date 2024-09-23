@@ -16,6 +16,9 @@ public class Carrito : MonoBehaviour
        
 
     }
+    // Script de ataque Carrito
+  
+
 
     private void Update()
     {
@@ -37,6 +40,7 @@ public class Carrito : MonoBehaviour
 
     private void Attack()
     {
+
         // Obtener todos los colliders en el rango del ataque
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
 
@@ -52,7 +56,7 @@ public class Carrito : MonoBehaviour
             if (angleToEnemy < attackAngle / 2f)
             {
                 Debug.Log("Golpeó a " + enemy.name);
-                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage);
+                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, "Carrito");
             }
         }
     }

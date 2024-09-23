@@ -15,7 +15,7 @@ public class Tijeras : MonoBehaviour
             if (enemyHealth != null)
             {
                 Debug.Log("Esfera ha colisionado con " + collision.gameObject.name + ". Infligiendo " + damage + " de daño.");
-                enemyHealth.TakeDamage(damage);
+                enemyHealth.TakeDamage(damage, "Tijeras");
             }
             else
             {
