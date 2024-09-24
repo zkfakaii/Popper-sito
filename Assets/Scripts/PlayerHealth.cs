@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement; // Necesario para cambiar de escena
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100; // Vida máxima del jugador
+    public int maxHealth = 10; // Vida máxima del jugador
     private int currentHealth;  // Vida actual del jugador
     public Image vida; // Imagen que representa la vida
     public List<Sprite> vidasp; // Lista de sprites para las diferentes vidas
