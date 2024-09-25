@@ -1,11 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement; // Necesario para cambiar de escena
 
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 10; // Vida máxima del jugador
     private int currentHealth;  // Vida actual del jugador
+    public Image vida; // Imagen que representa la vida
+    public List<Sprite> vidasp; // Lista de sprites para las diferentes vidas
 
     [Header("Scene Settings")]
     public string sceneToLoadOnDeath = "GameOver"; // Nombre de la escena a cargar cuando el jugador muere
@@ -15,12 +19,13 @@ public class PlayerHealth : MonoBehaviour
     private bool isInvulnerable = false; // Estado de invulnerabilidad
 
     public float blinkInterval = 0.1f; // Intervalo de parpadeo durante la invulnerabilidad
-    private Renderer[] playerRenderers; // Referencia a los Renderer del jugador y sus hijos
+    private Renderer[] playerRenderers; // Referencia a los Renderers del jugador y sus hijos
 
     private void Start()
     {
         // Inicializa la vida actual al máximo al inicio
         currentHealth = maxHealth;
+        UpdateUI(); // Actualiza la interfaz de usuario al inicio
 
         // Obtiene todos los Renderers del jugador y sus hijos para el efecto de parpadeo
         playerRenderers = GetComponentsInChildren<Renderer>();
@@ -30,14 +35,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        // Muestra la vida actual en la pantalla usando GUI
-        GUIStyle style = new GUIStyle();
-        style.fontSize = 64;
-        style.normal.textColor = Color.white;
-        GUILayout.Label("Vida: " + currentHealth, style);
-    }
 
     public void TakeDamage(int damage)
     {
@@ -49,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
             // Asegúrate de que la vida no sea menor que cero
             if (currentHealth <= 0)
             {
+                currentHealth = 0; // Asegúrate de no tener vida negativa
                 Die();
             }
             else
@@ -56,6 +54,8 @@ public class PlayerHealth : MonoBehaviour
                 // Inicia la corrutina de invulnerabilidad y parpadeo
                 StartCoroutine(InvulnerabilityCoroutine());
             }
+
+            UpdateUI(); // Actualiza la UI después de recibir daño
         }
     }
 
@@ -97,5 +97,30 @@ public class PlayerHealth : MonoBehaviour
 
         isInvulnerable = false;
         Debug.Log("Jugador ya no es invulnerable.");
+    }
+
+    private void UpdateUI()
+    {
+        // Actualiza la imagen de la vida según la salud actual
+        if (currentHealth > 4)
+        {
+            vida.sprite = vidasp[0];
+        }
+        else if (currentHealth > 3)
+        {
+            vida.sprite = vidasp[1];
+        }
+        else if (currentHealth > 2)
+        {
+            vida.sprite = vidasp[2];
+        }
+        else if (currentHealth > 1)
+        {
+            vida.sprite = vidasp[3];
+        }
+        else
+        {
+            vida.sprite = vidasp[4];
+        }
     }
 }
