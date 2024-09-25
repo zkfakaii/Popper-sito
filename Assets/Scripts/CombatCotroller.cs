@@ -4,80 +4,82 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
-    public Transform attackPoint; // Punto de origen del ataque
-    public Vector3 boxSize = new Vector3(2f, 1f, 5f); // Tamaño del box
-    public int attackDamage = 1; // Daño que inflige el ataque
-    public LayerMask enemyLayers; // Capa de los enemigos
+    public Transform attackPoint;
+    public Vector3 boxSize = new Vector3(2f, 1f, 5f);
+    public int attackDamage = 1;
+    public LayerMask enemyLayers;
     [SerializeField] private Animator anim;
-    public float attackSpeedMultiplier = 1.2f; // Factor de aumento de velocidad para el ataque especial
-    public float baseAttackSpeed = 1f; // Velocidad de ataque base
 
-    private bool isAttacking = false; // Para evitar múltiples ataques mientras la animación está activa
-    private bool isSpecialAttack = false; // Para controlar si se está ejecutando el ataque especial
-    private ScoreManager scoreManager;
+    private bool isAttacking = false;
+    private bool isSpecialAttack = false; // Variable para identificar si es el ataque especial
+    private ScoreManager scoreManager; // Referencia al ScoreManager
 
     private void Start()
     {
-        scoreManager = FindObjectOfType<ScoreManager>();
+        scoreManager = FindObjectOfType<ScoreManager>(); // Obtener el ScoreManager
     }
 
     private void Update()
     {
         // Ataque normal
-        if (Input.GetKeyDown(KeyCode.E) && !isAttacking && !isSpecialAttack)
+        if (Input.GetKeyDown(KeyCode.E) && !isAttacking)
         {
-            StartCoroutine(PerformAttack(baseAttackSpeed));
+            StartCoroutine(PerformAttack());
         }
 
-        // Ataque especial con Shift + E
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.E) && scoreManager.CanUseSpecialTijerasAttack() && !isAttacking)
+        // Ataque especial si se presiona Shift + E y hay suficientes puntos
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.E) && !isAttacking && scoreManager.CanUseSpecialTijerasAttack())
         {
+            Debug.Log("Preparando ataque especial de Tijeras"); // Debug cuando se detecta la combinación de teclas
             isSpecialAttack = true;
             scoreManager.UseSpecialTijerasAttack();
             StartCoroutine(PerformSpecialAttack());
         }
     }
 
-    private IEnumerator PerformAttack(float speed)
+    private IEnumerator PerformAttack()
     {
+        Debug.Log("Realizando ataque normal de Tijeras"); // Debug para el ataque normal
+        anim.SetBool("Corando", true);
         isAttacking = true;
 
-        // Inicia la animación de ataque con velocidad ajustada
-        anim.SetBool("Corando", true);
-        anim.speed = speed;
+        AnimatorStateInfo animInfo = anim.GetCurrentAnimatorStateInfo(0);
+        float animationLength = animInfo.length;
 
-        // Ejecuta el ataque
         Attack();
 
-        // Espera el tiempo ajustado por la velocidad de la animación
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / speed);
+        yield return new WaitForSeconds(animationLength);
 
-        // Finaliza la animación
         anim.SetBool("Corando", false);
-        anim.speed = 1f; // Resetea la velocidad de la animación
         isAttacking = false;
     }
 
     private IEnumerator PerformSpecialAttack()
     {
-        // El ataque especial se ejecuta tres veces, aumentando la velocidad en cada repetición
-        for (int i = 0; i < 3; i++)
+        Debug.Log("Realizando ataque especial de Tijeras"); // Debug al iniciar el ataque especial
+        isAttacking = true;
+        anim.SetBool("Corando", true);
+
+        for (int i = 0; i < 3; i++) // Realizar el ataque 3 veces
         {
-            float speed = baseAttackSpeed * Mathf.Pow(attackSpeedMultiplier, i); // Aumenta la velocidad con cada ataque
-            yield return StartCoroutine(PerformAttack(speed));
+            Debug.Log($"Ataque especial {i + 1} de 3"); // Debug para cada repetición del ataque especial
+            Attack();
+            yield return new WaitForSeconds(0.5f); // Tiempo entre ataques, puedes ajustarlo según lo que necesites
         }
-        isSpecialAttack = false; // Restablece la bandera después de realizar el ataque especial
+
+        anim.SetBool("Corando", false);
+        isAttacking = false;
+        isSpecialAttack = false; // Resetear el estado de ataque especial
     }
 
     private void Attack()
     {
-        // Usar BoxCast para detectar enemigos dentro del rango definido por la caja
         Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, boxSize / 2, attackPoint.rotation, enemyLayers);
 
         foreach (Collider enemy in hitEnemies)
         {
             Debug.Log("Golpeó a " + enemy.name);
-            enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, "CombatController");
+            enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, isSpecialAttack ? "CombatControllerSpecial" : "CombatController");
         }
     }
 
@@ -86,7 +88,6 @@ public class CombatController : MonoBehaviour
         if (attackPoint == null)
             return;
 
-        // Dibuja la caja de ataque en el editor
         Gizmos.color = Color.red;
         Gizmos.matrix = Matrix4x4.TRS(attackPoint.position, attackPoint.rotation, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, boxSize);

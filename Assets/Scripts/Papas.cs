@@ -31,6 +31,7 @@ public class Papas : MonoBehaviour
 
         // Verifica si se presiona Shift + F para el ataque especial
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F) && !isAttacking && scoreManager.CanUseSpecialPapasAttack())
+            Debug.Log("iansolis");
         {
             isSpecialAttack = true;
             scoreManager.UseSpecialPapasAttack();
