@@ -599,9 +599,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3003c6ee51ca85468d09146ddf309cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 5203520827923092743, guid: 66af8ce159573134bb2d24ccc69d6de8, type: 3}
-  spawnAmount: 3
-  spawnInterval: 4
+  enemyPrefab: {fileID: 1455294655644712605, guid: 66307b302ce40d64d8da303b5af74be3, type: 3}
+  spawnAmount: 1
+  spawnInterval: 0
   spawnPoints:
   - {fileID: 171564093}
 --- !u!4 &159362958
@@ -612,13 +612,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 159362956}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 338.6, y: 0, z: -3.8}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.700012, y: 8, z: 0.20000005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 171564093}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1200673818}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &171564092
 GameObject:
@@ -645,7 +645,7 @@ Transform:
   m_GameObject: {fileID: 171564092}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13, y: 0, z: -2.4}
+  m_LocalPosition: {x: 13, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1140,6 +1140,8 @@ GameObject:
   - component: {fileID: 245748162}
   - component: {fileID: 245748164}
   - component: {fileID: 245748163}
+  - component: {fileID: 245748166}
+  - component: {fileID: 245748165}
   m_Layer: 0
   m_Name: Room 1
   m_TagString: Untagged
@@ -1220,6 +1222,72 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 42, y: 15, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &245748165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245748161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7237c1647c52db1459a3890e500e7d3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogText: {fileID: 1838497821}
+  sentences:
+  - Finalmente llegaste al campo silvestre, usa espacio para avanzar el texto.
+  - Tus compatriotas PolloLocos son criaturas simples.
+  - Plumiferos amantes de la vida de campo, pero por sobretodo, son una raza Gourmet.
+  - "Este a\xF1o la cosecha ha sido terrible..."
+  - En situaciones como esta, solo queda ir en busca de los ingredientes silvestres
+  - Sin embargo, no todos pueden enfrentarse a estos ingredientes
+  - Los Feriantes, PolloLocos dedicados a esta labor, tienen gran demanda en estas
+    situaciones
+  - "Aqu\xED es donde entras en escena"
+  - "Provienes de una larga dinast\xEDa de Feriantes que practican un antiguo Arte
+    Marcial"
+  - El Papas, Carrito, Tijeras
+  - "Es  tu momento de luchar contra los m\xE1s feroces ingredientes y traer la abundancia
+    a tu gente"
+  - Presiona D para avanzar hacia adelante.
+--- !u!114 &245748166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245748161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e46ac8d61dc065848bd5a1aa7cd8c006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 9
+  m_WithTag: Player
+  m_WithoutTag: 
+  m_SkipFirst: 0
+  m_Repeating: 1
+  m_OnObjectEnter:
+    m_Action: 2
+    m_Target: {fileID: 1838497819}
+    m_BoostAmount: 0
+    m_StartTime: 0
+    m_Mode: 0
+    m_Event:
+      m_PersistentCalls:
+        m_Calls: []
+  m_OnObjectExit:
+    m_Action: 3
+    m_Target: {fileID: 1838497819}
+    m_BoostAmount: 0
+    m_StartTime: 0
+    m_Mode: 0
+    m_Event:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &246544156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,7 +1448,7 @@ Transform:
   m_GameObject: {fileID: 254078117}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.44, y: 0, z: -1.4000034}
+  m_LocalPosition: {x: 19.44, y: 0, z: -3.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5177,7 +5245,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogText: {fileID: 1838497821}
   sentences:
-  - Probemos usando el Saco de Papas Mejorado.
+  - "Es hora de adentrarnos aun m\xE1s en estas tierras."
+  - Adentrate en el gran arbusto para avanzar en tu camino.
 --- !u!114 &911826839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6199,8 +6268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogText: {fileID: 1838497821}
   sentences:
-  - Para moverte utiliza las teclas W A S D  y  para cambiar de Dialogo usa Espacio.
-  - Sigue Adelante.
+  - Para moverte utiliza las teclas W A S D.
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -7178,8 +7246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3003c6ee51ca85468d09146ddf309cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1485178472}
-  spawnAmount: 5
+  enemyPrefab: {fileID: 3535665901414996722, guid: d437506bbe0732f48b9a8f13f5d91b17, type: 3}
+  spawnAmount: 1
   spawnInterval: 3
   spawnPoints:
   - {fileID: 1270354387}
@@ -7192,14 +7260,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062197880}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 327.9, y: -8, z: -4}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 50.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1270354387}
   - {fileID: 254078118}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1200673818}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1081533925
 GameObject:
@@ -7262,8 +7330,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5203520827923092743, guid: 66af8ce159573134bb2d24ccc69d6de8, type: 3}
-  spawnAmount: 3
-  spawnInterval: 4
+  spawnAmount: 1
+  spawnInterval: 0
   spawnPoints:
   - {fileID: 1393284997}
 --- !u!4 &1094462939
@@ -7274,13 +7342,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094462937}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 341, y: 0, z: -11}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.100006, y: 8, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1393284997}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1200673818}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1107326012
 GameObject:
@@ -8116,7 +8184,7 @@ Transform:
   m_GameObject: {fileID: 1168775453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 367.3, y: 0, z: -10.5}
+  m_LocalPosition: {x: -5.5, y: 0, z: -10.5}
   m_LocalScale: {x: 1, y: 1, z: 0.39422}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8195,6 +8263,40 @@ Transform:
   - {fileID: 2079273248}
   m_Father: {fileID: 683177167}
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
+--- !u!1 &1200673817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1200673818}
+  m_Layer: 0
+  m_Name: Fath-Spawn R9
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1200673818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200673817}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 327.9, y: -8, z: -4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1062197882}
+  - {fileID: 159362958}
+  - {fileID: 1094462939}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1213204318
 GameObject:
   m_ObjectHideFlags: 0
@@ -8786,7 +8888,7 @@ Transform:
   m_GameObject: {fileID: 1270354386}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.4}
+  m_LocalPosition: {x: -5.5, y: 0, z: -1.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9500,7 +9602,7 @@ Transform:
   m_GameObject: {fileID: 1393284996}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 0, z: 12}
+  m_LocalPosition: {x: 39.9, y: 0, z: 12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9723,11 +9825,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: aec10e73e2dda7b4b8fc7dce35356069, type: 3}
   m_PrefabInstance: {fileID: 504821212}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1485178472 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1455294655644712605, guid: 66307b302ce40d64d8da303b5af74be3, type: 3}
-  m_PrefabInstance: {fileID: 3013372989312398058}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1521379593 stripped
 Transform:
@@ -11646,7 +11743,6 @@ GameObject:
   - component: {fileID: 2001307308}
   - component: {fileID: 2001307307}
   - component: {fileID: 2001307312}
-  - component: {fileID: 2001307311}
   m_Layer: 0
   m_Name: Room 9
   m_TagString: Untagged
@@ -11779,43 +11875,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 42, y: 15, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2001307311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001307305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e46ac8d61dc065848bd5a1aa7cd8c006, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 9
-  m_WithTag: 
-  m_WithoutTag: 
-  m_SkipFirst: 0
-  m_Repeating: 1
-  m_OnObjectEnter:
-    m_Action: 2
-    m_Target: {fileID: 1094462937}
-    m_BoostAmount: 0
-    m_StartTime: 0
-    m_Mode: 0
-    m_Event:
-      m_PersistentCalls:
-        m_Calls: []
-  m_OnObjectExit:
-    m_Action: 0
-    m_Target: {fileID: 0}
-    m_BoostAmount: 0
-    m_StartTime: 0
-    m_Mode: 0
-    m_Event:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!114 &2001307312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11837,7 +11896,7 @@ MonoBehaviour:
   m_Repeating: 1
   m_OnObjectEnter:
     m_Action: 2
-    m_Target: {fileID: 159362956}
+    m_Target: {fileID: 1200673817}
     m_BoostAmount: 0
     m_StartTime: 0
     m_Mode: 0
@@ -12753,9 +12812,7 @@ SceneRoots:
   - {fileID: 1843620040}
   - {fileID: 1168775462}
   - {fileID: 1229209396}
-  - {fileID: 1062197882}
-  - {fileID: 159362958}
-  - {fileID: 1094462939}
+  - {fileID: 1200673818}
   - {fileID: 1432926690}
   - {fileID: 1628318401}
   - {fileID: 1763141131}
