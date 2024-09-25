@@ -63,19 +63,6 @@ public class Carrot : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Verifica si el enemigo ha colisionado con el jugador
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // Lógica a ejecutar cuando colisiona con el jugador
-            Debug.Log("Carrot ha colisionado con el jugador!");
-
-            // Detenemos el movimiento del enemigo tras la colisión
-            hasCollided = true;
-
-            // Aquí puedes agregar cualquier otra lógica adicional, como reducir la vida del jugador
-            navMeshAgent.isStopped = true; // Detiene el movimiento del NavMeshAgent
-        }
-    }
+ 
+    
 }
