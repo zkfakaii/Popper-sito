@@ -1694,7 +1694,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231668109}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7237c1647c52db1459a3890e500e7d3a, type: 3}
   m_Name: 
@@ -2554,7 +2554,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283617673}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7237c1647c52db1459a3890e500e7d3a, type: 3}
   m_Name: 
@@ -3822,9 +3822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogText: {fileID: 1838497821}
-  sentences:
-  - Oh no...
-  - Creo que una horda de ingredientes se acerca!!
+  sentences: []
 --- !u!114 &382628228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7451,8 +7449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogText: {fileID: 1838497821}
-  sentences:
-  - Esos Troncos bloquean tu paso...
+  sentences: []
 --- !u!114 &784996124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18244,7 +18241,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1437467389390362412, guid: 444d99bbc1344b5498b9f0bbe174eb10, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 218.6
+      value: -3.6
       objectReference: {fileID: 0}
     - target: {fileID: 1437467389390362412, guid: 444d99bbc1344b5498b9f0bbe174eb10, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18290,6 +18287,10 @@ PrefabInstance:
       propertyPath: vida
       value: 
       objectReference: {fileID: 609713359}
+    - target: {fileID: 3075278938773560552, guid: 444d99bbc1344b5498b9f0bbe174eb10, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6233951420234339836, guid: 444d99bbc1344b5498b9f0bbe174eb10, type: 3}
       propertyPath: walkSpeed
       value: 15

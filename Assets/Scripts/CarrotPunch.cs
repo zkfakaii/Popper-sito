@@ -66,14 +66,7 @@ public class CarrotPunch : MonoBehaviour
         // Realiza el ataque con Raycast
         PerformRaycastAttack();
 
-        // Espera un tiempo adicional después del ataque antes de permitir que el enemigo se mueva nuevamente
-        yield return new WaitForSeconds(stopDuration);
-
-        // Reactiva el movimiento del enemigo
-        if (navMeshAgent != null)
-        {
-            navMeshAgent.isStopped = false;
-        }
+       
     }
 
  private void PerformRaycastAttack()

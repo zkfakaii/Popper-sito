@@ -13085,6 +13085,10 @@ PrefabInstance:
       propertyPath: vida
       value: 
       objectReference: {fileID: 609713359}
+    - target: {fileID: 3075278938773560552, guid: 444d99bbc1344b5498b9f0bbe174eb10, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6233951420234339836, guid: 444d99bbc1344b5498b9f0bbe174eb10, type: 3}
       propertyPath: walkSpeed
       value: 15

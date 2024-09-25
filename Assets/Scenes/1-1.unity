@@ -8148,7 +8148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0104784803244e64180343e68a9f6864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 10
   vida: {fileID: 609713359}
   vidasp:
   - {fileID: 492542396, guid: 8a786c2c6464f8b4b8caa5f7653d7cbb, type: 3}

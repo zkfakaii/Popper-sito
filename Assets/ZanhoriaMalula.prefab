@@ -161,21 +161,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5520567102709047851}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2cf14cd9463e9448dc205ab0fccb34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackSpeed: 1
-  attackDistance: 3
+  attackDistance: 4
   attackDelay: 1
-  raycastLength: 3
-  raycastWidth: 1
+  raycastLength: 4
+  raycastWidth: 2
   attackPoint: {fileID: 4918900212115622574}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  stopDuration: 1
+  stopDuration: 0
   pushForce: 50
   yOffset: {x: 0, y: 0.75, z: 2}
 --- !u!114 &3303481232603167908
