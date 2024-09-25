@@ -83,6 +83,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZanhoriaMalula
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9f367bcf0e800674dacbb5d6bd461fad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 9f367bcf0e800674dacbb5d6bd461fad, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 9f367bcf0e800674dacbb5d6bd461fad, type: 3}
       propertyPath: m_IsActive
       value: 1
