@@ -23,20 +23,22 @@ public class Papas : MonoBehaviour
 
     private void Update()
     {
-        // Solo permitir que se inicie un ataque si no está atacando
-        if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
-        {
-            StartCoroutine(PerformAttackWithAnimation());
-        }
 
         // Verifica si se presiona Shift + F para el ataque especial
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F) && !isAttacking && scoreManager.CanUseSpecialPapasAttack())
-            Debug.Log("iansolis");
+
         {
             isSpecialAttack = true;
             scoreManager.UseSpecialPapasAttack();
             StartCoroutine(PerformAttackWithAnimation());
         }
+        // Solo permitir que se inicie un ataque si no está atacando
+        else if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
+        {
+            StartCoroutine(PerformAttackWithAnimation());
+        }
+
+        
     }
 
     private IEnumerator PerformAttackWithAnimation()
