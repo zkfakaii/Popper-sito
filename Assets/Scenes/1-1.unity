@@ -498,53 +498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &154961423
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 154961425}
-  - component: {fileID: 154961424}
-  m_Layer: 3
-  m_Name: ScoreManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &154961424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154961423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41289b2dbfd95dd48ad6fb663454349b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  carritoScore: 0
-  tijerasScore: 0
-  papasScore: 0
---- !u!4 &154961425
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154961423}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.28, y: -0.406, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.39422}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &159362956
 GameObject:
   m_ObjectHideFlags: 0
@@ -7470,6 +7423,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1000
+  vida: {fileID: 0}
+  vidasp: []
   sceneToLoadOnDeath: Muerte
   invulnerabilityDuration: 2
   blinkInterval: 0.1
@@ -10025,6 +9980,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1838497819}
   m_CullTransparentMesh: 1
+--- !u!1 &1843620038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1843620040}
+  - component: {fileID: 1843620039}
+  m_Layer: 3
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1843620039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843620038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41289b2dbfd95dd48ad6fb663454349b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carritoScore: 3
+  tijerasScore: 3
+  papasScore: 3
+  carrito: {fileID: 0}
+  Carritosp:
+  - {fileID: -129598352, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  - {fileID: 288821621, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  - {fileID: 86255806, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  - {fileID: -1430567929, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  tijeras: {fileID: 0}
+  tijerassp:
+  - {fileID: 1631823586, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  - {fileID: 1835343996, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  - {fileID: -1450415100, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  - {fileID: -1171525504, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  papas: {fileID: 0}
+  papassp:
+  - {fileID: 646265601, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  - {fileID: -740306909, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  - {fileID: 271476825, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+  - {fileID: -1600868955, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
+--- !u!4 &1843620040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843620038}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.28, y: -0.406, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0.39422}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1861124673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fda3eaf26926ed44a8670b57f5207190, type: 3}
@@ -11644,7 +11664,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 683177167}
-  - {fileID: 154961425}
+  - {fileID: 1843620040}
   - {fileID: 1168775462}
   - {fileID: 1229209396}
   - {fileID: 1062197882}
