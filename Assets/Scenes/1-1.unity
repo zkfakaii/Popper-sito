@@ -7513,7 +7513,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168775453}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 641d62fd030957b47ad9f1cc0641593b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -7525,10 +7525,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.53
-  m_Height: 2.7
+  m_Radius: 1
+  m_Height: 3.05
   m_Direction: 1
-  m_Center: {x: 2.25, y: 0.59550965, z: 2.4999998}
+  m_Center: {x: 2.25, y: 1.24, z: 2.4999998}
 --- !u!54 &1168775455
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7569,8 +7569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1761732342}
-  attackRange: 10
-  attackAngle: 12
+  boxSize: {x: 3, y: 5, z: 13}
   attackDamage: 1
   enemyLayers:
     serializedVersion: 2
@@ -7664,7 +7663,7 @@ Transform:
   m_GameObject: {fileID: 1168775453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.7, y: -0.406, z: -10.5}
+  m_LocalPosition: {x: -10.71, y: 0, z: -10.5}
   m_LocalScale: {x: 1, y: 1, z: 0.39422}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9941,7 +9940,7 @@ Transform:
   m_GameObject: {fileID: 1761732341}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.2, z: 17.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10354,9 +10353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41289b2dbfd95dd48ad6fb663454349b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carritoScore: 3
-  tijerasScore: 3
-  papasScore: 3
+  carritoScore: 0
+  tijerasScore: 0
+  papasScore: 0
   carrito: {fileID: 1046469694}
   Carritosp:
   - {fileID: -129598352, guid: 42ce7ab18afbf2041b13672faddfb46c, type: 3}
@@ -11469,7 +11468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3462946176334868132, guid: 88b423a437db5b246b6face3e0338869, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.31400004
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 3462946176334868132, guid: 88b423a437db5b246b6face3e0338869, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11972,6 +11971,10 @@ PrefabInstance:
     - target: {fileID: 1455294655644712605, guid: 66307b302ce40d64d8da303b5af74be3, type: 3}
       propertyPath: m_Name
       value: Cherry-fath
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455294655644712605, guid: 66307b302ce40d64d8da303b5af74be3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5006124788255213087, guid: 66307b302ce40d64d8da303b5af74be3, type: 3}
       propertyPath: m_LocalPosition.x

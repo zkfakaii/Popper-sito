@@ -1,5 +1,4 @@
 
-
 using System.Collections;
 using UnityEngine;
 
@@ -15,6 +14,7 @@ public class Papas : MonoBehaviour
 
     private ScoreManager scoreManager;
     private bool isSpecialAttack = false;
+    private bool isAttacking = false; // Nueva variable para controlar el estado del ataque
 
     private void Start()
     {
@@ -23,23 +23,43 @@ public class Papas : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        // Solo permitir que se inicie un ataque si no está atacando
+        if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
         {
-            StartCoroutine(AttackWithDelay());
-            anim.SetBool("saco", true);
-        }
-        if (Input.GetKeyUp(KeyCode.F))
-        {
-            anim.SetBool("saco", false);
+            StartCoroutine(PerformAttackWithAnimation());
         }
 
         // Verifica si se presiona Shift + F para el ataque especial
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F) && scoreManager.CanUseSpecialPapasAttack())
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F) && !isAttacking && scoreManager.CanUseSpecialPapasAttack())
         {
             isSpecialAttack = true;
             scoreManager.UseSpecialPapasAttack();
-            StartCoroutine(AttackWithDelay());
+            StartCoroutine(PerformAttackWithAnimation());
         }
+    }
+
+    private IEnumerator PerformAttackWithAnimation()
+    {
+        isAttacking = true; // Inicia el ataque
+
+        // Activa la animación
+        anim.SetBool("saco", true);
+
+        // Espera hasta que la animación se complete
+        AnimatorStateInfo animInfo = anim.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(animInfo.length);
+
+        // Realiza el ataque después de que la animación se haya completado
+        StartCoroutine(AttackWithDelay());
+
+        // Espera a que termine la animación de ataque antes de permitir otro ataque
+        yield return new WaitForSeconds(animInfo.length);
+
+        // Finaliza la animación
+        anim.SetBool("saco", false);
+
+        // Permite que el ataque se pueda ejecutar de nuevo
+        isAttacking = false;
     }
 
     private IEnumerator AttackWithDelay()
@@ -53,13 +73,18 @@ public class Papas : MonoBehaviour
         float currentAttackRange = isSpecialAttack ? 8f : attackRange; // Rango especial
         float currentAttackAngle = isSpecialAttack ? 360f : attackAngle; // Ángulo especial
 
+        // Detecta enemigos en el área esférica
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, currentAttackRange, enemyLayers);
 
         foreach (Collider enemy in hitEnemies)
         {
+            // Calcula la dirección hacia el enemigo desde el punto de ataque
             Vector3 directionToEnemy = (enemy.transform.position - attackPoint.position).normalized;
+
+            // Calcula el ángulo entre el frente del ataque y la dirección hacia el enemigo
             float angleToEnemy = Vector3.Angle(attackPoint.forward, directionToEnemy);
 
+            // Si el enemigo está dentro del ángulo definido, aplica el daño
             if (angleToEnemy < currentAttackAngle / 2f)
             {
                 Debug.Log("Golpeó a " + enemy.name);
@@ -77,7 +102,11 @@ public class Papas : MonoBehaviour
     {
         if (attackPoint == null) return;
 
+        // Dibuja el rango de ataque (esfera o semiesfera)
         Gizmos.color = isSpecialAttack ? Color.yellow : Color.grey;
+        Gizmos.DrawWireSphere(attackPoint.position, isSpecialAttack ? 8f : attackRange);
+
+        // Dibuja el ángulo del ataque en forma de semiesfera
         for (int i = 0; i <= 10; i++)
         {
             float currentAngle = Mathf.Lerp(-attackAngle / 2f, attackAngle / 2f, i / 10f);
@@ -85,33 +114,10 @@ public class Papas : MonoBehaviour
             Gizmos.DrawRay(attackPoint.position, direction * attackRange);
         }
 
-
-      
-        if (attackPoint == null)
-                return;
-
-            // Dibuja el rango de ataque especial
+        if (FindObjectOfType<ScoreManager>().CanUseSpecialPapasAttack())
+        {
             Gizmos.color = Color.yellow;
-
-            // Verifica si los puntos de Papas son suficientes para el ataque especial
-            if (FindObjectOfType<ScoreManager>().CanUseSpecialPapasAttack())
-            {
-                // Dibuja el círculo completo con rango de 8 para el ataque especial
-                Gizmos.DrawWireSphere(attackPoint.position, 8f);
-            }
-            else
-            {
-                // Dibuja el cono normal
-                Gizmos.color = Color.grey;
-                for (int i = 0; i <= 10; i++)
-                {
-                    float currentAngle = Mathf.Lerp(-attackAngle / 2f, attackAngle / 2f, i / 10f);
-                    Vector3 direction = Quaternion.Euler(0, currentAngle, 0) * attackPoint.forward;
-                    Gizmos.DrawRay(attackPoint.position, direction * attackRange);
-                }
-            }
-        
-
+            Gizmos.DrawWireSphere(attackPoint.position, 8f); // Dibuja el círculo completo para el ataque especial
+        }
     }
-
 }

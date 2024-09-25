@@ -5,60 +5,52 @@ using UnityEngine;
 public class Carrito : MonoBehaviour
 {
     public Transform attackPoint; // Punto de origen del ataque
-    public float attackRange = 5f; // Distancia máxima del ataque
-    public float attackAngle = 45f; // Ángulo de apertura del cono
+    public Vector3 boxSize = new Vector3(2f, 1f, 5f); // Tamaño del box
     public int attackDamage = 1; // Daño que inflige el ataque
     public LayerMask enemyLayers; // Capa de los enemigos
-    public Animator anim; // Referencia al componente Animator
+    [SerializeField] private Animator anim;
 
-    private void Start()
-    {
-       
-
-    }
-    // Script de ataque Carrito
-  
-
+    private bool isAttacking = false; // Para evitar múltiples ataques mientras la animación está activa
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        // Solo permitir que el jugador ataque si no está ya atacando
+        if (Input.GetKeyDown(KeyCode.Q) && !isAttacking)
         {
-            // Activa la animación de ataque
-
-            anim.SetBool("Carro", true);
-
-            // Ejecuta el ataque
-            Attack();
+            StartCoroutine(PerformAttack());
         }
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            anim.SetBool("Carro", false);
+    }
 
-        }
+    private IEnumerator PerformAttack()
+    {
+        // Iniciar la animación de ataque
+        anim.SetBool("Carro", true);
+        isAttacking = true;
+
+        // Esperar a que la animación comience y obtenga su duración
+        AnimatorStateInfo animInfo = anim.GetCurrentAnimatorStateInfo(0);
+        float animationLength = animInfo.length;
+
+        // Ejecuta el ataque
+        Attack();
+
+        // Esperar hasta que la animación termine
+        yield return new WaitForSeconds(animationLength);
+
+        // Finalizar la animación
+        anim.SetBool("Carro", false);
+        isAttacking = false;
     }
 
     private void Attack()
     {
-
-        // Obtener todos los colliders en el rango del ataque
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
+        // Usar BoxCast para detectar enemigos dentro del rango definido por la caja
+        Collider[] hitEnemies = Physics.OverlapBox(attackPoint.position, boxSize / 2, attackPoint.rotation, enemyLayers);
 
         foreach (Collider enemy in hitEnemies)
         {
-            // Calcular la dirección desde el punto de ataque al enemigo
-            Vector3 directionToEnemy = (enemy.transform.position - attackPoint.position).normalized;
-
-            // Calcular el ángulo entre la dirección de ataque (hacia adelante) y la dirección al enemigo
-            float angleToEnemy = Vector3.Angle(attackPoint.forward, directionToEnemy);
-
-            // Si el enemigo está dentro del ángulo de ataque, aplicarle daño
-            if (angleToEnemy < attackAngle / 2f)
-            {
-                Debug.Log("Golpeó a " + enemy.name);
-                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, "Carrito");
-
-            }
+            Debug.Log("Golpeó a " + enemy.name);
+            enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage, "Carrito");
         }
     }
 
@@ -67,15 +59,9 @@ public class Carrito : MonoBehaviour
         if (attackPoint == null)
             return;
 
-        // Dibuja el rango de ataque como un cono
+        // Dibuja la caja de ataque en el editor
         Gizmos.color = Color.green;
-
-        // Dibuja líneas radiales para simular el cono en el editor
-        for (int i = 0; i <= 10; i++)
-        {
-            float currentAngle = Mathf.Lerp(-attackAngle / 2f, attackAngle / 2f, i / 10f);
-            Vector3 direction = Quaternion.Euler(0, currentAngle, 0) * attackPoint.forward;
-            Gizmos.DrawRay(attackPoint.position, direction * attackRange);
-        }
+        Gizmos.matrix = Matrix4x4.TRS(attackPoint.position, attackPoint.rotation, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, boxSize);
     }
 }
