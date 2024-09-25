@@ -9,37 +9,64 @@ public class CombatController : MonoBehaviour
     public int attackDamage = 1; // Daño que inflige el ataque
     public LayerMask enemyLayers; // Capa de los enemigos
     [SerializeField] private Animator anim;
+    public float attackSpeedMultiplier = 1.2f; // Factor de aumento de velocidad para el ataque especial
+    public float baseAttackSpeed = 1f; // Velocidad de ataque base
 
     private bool isAttacking = false; // Para evitar múltiples ataques mientras la animación está activa
+    private bool isSpecialAttack = false; // Para controlar si se está ejecutando el ataque especial
+    private ScoreManager scoreManager;
+
+    private void Start()
+    {
+        scoreManager = FindObjectOfType<ScoreManager>();
+    }
 
     private void Update()
     {
-        // Solo permitir que el jugador ataque si no está ya atacando
-        if (Input.GetKeyDown(KeyCode.E) && !isAttacking)
+        // Ataque normal
+        if (Input.GetKeyDown(KeyCode.E) && !isAttacking && !isSpecialAttack)
         {
-            StartCoroutine(PerformAttack());
+            StartCoroutine(PerformAttack(baseAttackSpeed));
+        }
+
+        // Ataque especial con Shift + E
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.E) && scoreManager.CanUseSpecialTijerasAttack() && !isAttacking)
+        {
+            isSpecialAttack = true;
+            scoreManager.UseSpecialTijerasAttack();
+            StartCoroutine(PerformSpecialAttack());
         }
     }
 
-    private IEnumerator PerformAttack()
+    private IEnumerator PerformAttack(float speed)
     {
-        // Iniciar la animación de ataque
-        anim.SetBool("Corando", true);
         isAttacking = true;
 
-        // Esperar a que la animación comience y obtenga su duración
-        AnimatorStateInfo animInfo = anim.GetCurrentAnimatorStateInfo(0);
-        float animationLength = animInfo.length;
+        // Inicia la animación de ataque con velocidad ajustada
+        anim.SetBool("Corando", true);
+        anim.speed = speed;
 
         // Ejecuta el ataque
         Attack();
 
-        // Esperar hasta que la animación termine
-        yield return new WaitForSeconds(animationLength);
+        // Espera el tiempo ajustado por la velocidad de la animación
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length / speed);
 
-        // Finalizar la animación
+        // Finaliza la animación
         anim.SetBool("Corando", false);
+        anim.speed = 1f; // Resetea la velocidad de la animación
         isAttacking = false;
+    }
+
+    private IEnumerator PerformSpecialAttack()
+    {
+        // El ataque especial se ejecuta tres veces, aumentando la velocidad en cada repetición
+        for (int i = 0; i < 3; i++)
+        {
+            float speed = baseAttackSpeed * Mathf.Pow(attackSpeedMultiplier, i); // Aumenta la velocidad con cada ataque
+            yield return StartCoroutine(PerformAttack(speed));
+        }
+        isSpecialAttack = false; // Restablece la bandera después de realizar el ataque especial
     }
 
     private void Attack()
